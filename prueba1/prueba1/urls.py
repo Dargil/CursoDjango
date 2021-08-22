@@ -22,7 +22,7 @@ urlpatterns = [
     #identificar un parametro por url
     path('hola2/<nombre>', holamundo),
         #identificar un parametro por url recibir un numero
-    path('recibonumero/<int:num>', recibonumero),
+    path('recibonumero/', recibonumero),
 
 
     path('divi/<int:num1>/<int:num2>', division),

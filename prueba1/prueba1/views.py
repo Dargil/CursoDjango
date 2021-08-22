@@ -9,6 +9,20 @@ class Usuario():
         self.apellido=apellido
 
 
+# Estructuras de control del flujo en plantillas
+def recibonumero(request):
+    """Vista para impresión de número"""
+    listanumeros=[12,14,16,-3,15,24]
+    doc = open ("/home/jefferson/Documents/Curso Django/CursoDjango/prueba1/prueba1/templates/segundaplantilla.html")
+    plt=Template(doc.read())
+    doc.close()
+    ctx=Context({"lista":listanumeros})
+    mensaje=plt.render(ctx)
+    return HttpResponse(mensaje)
+
+
+
+
 # Pasando objetos a plantillas mediante contexto
 #http://127.0.0.1:8000/hola/oscar/perez
 def holamundoPlantilla(request,nombre,apellido):
@@ -59,7 +73,7 @@ def holamundo(request,nombre):
     texto="Bienvenido %s al curso de Django "% nombre
     return HttpResponse(texto)
 
-def recibonumero(request,num):
+def recibonumero2(request,num):
     """Vista para impresión de número"""
     texto="En número recibido es: %s"% num
     return HttpResponse(texto)
