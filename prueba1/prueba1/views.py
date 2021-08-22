@@ -3,12 +3,23 @@ import datetime
 from django.template import Template, Context
 
 # Lectura directa del archivo
-def holamundoPlantilla(request,nombre):
+def holamundoPlantilla1(request,nombre):
     """Vista Hola Mundo"""
-    doc = open ("/home/jefferson/Documents/Curso Django/CursoDjangoProjects/prueba1/prueba1//templates/miprimeraplantilla.html")
+    doc = open ("/home/jefferson/Documents/Curso Django/CursoDjango/prueba1/prueba1/templates/miprimeraplantilla.html")
     plt=Template(doc.read())
     doc.close()
     ctx=Context()
+    documento=plt.render(ctx)
+    return HttpResponse(documento)
+
+# Pasando variables a plantillas mediante contextos
+#http://127.0.0.1:8000/hola/oscar
+def holamundoPlantilla(request,nombre):
+    """Vista Hola Mundo"""
+    doc = open ("/home/jefferson/Documents/Curso Django/CursoDjango/prueba1/prueba1/templates/miprimeraplantilla.html")
+    plt=Template(doc.read())
+    doc.close()
+    ctx=Context({"nombre_user":nombre})
     documento=plt.render(ctx)
     return HttpResponse(documento)
 
