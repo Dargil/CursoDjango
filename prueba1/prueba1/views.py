@@ -1,12 +1,28 @@
 from django.http import HttpResponse
 import datetime
-from django.template import Template, Context
+from django.template import Template, Context,loader
+from django.shortcuts import render
+
+from pathlib import Path
 
 class Usuario():
 
     def __init__(self,nombre,apellido):
         self.nombre=nombre
         self.apellido=apellido
+
+
+def holamundo_render(request,nombre,apellido):
+    """Vista Hola Mundo"""
+   
+    myuser=Usuario(nombre,apellido)
+    #doc = open ("/home/jefferson/Documents/Curso Django/CursoDjango/prueba1/prueba1/templates/miprimeraplantilla.html")
+    #plt=loader.get_template("miprimeraplantilla.html")
+    #documento=plt.render({"user":myuser})
+    #doc.close()
+    #ctx=Context({"user":myuser})
+    #documento=plt.render(ctx)
+    return render(request,"miprimeraplantilla.html",{"user":myuser})
 
 
 # Estructuras de control del flujo en plantillas

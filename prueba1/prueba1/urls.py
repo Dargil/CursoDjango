@@ -27,5 +27,6 @@ urlpatterns = [
 
     path('divi/<int:num1>/<int:num2>', division),
     path('hola/<nombre>/<apellido>', holamundoPlantilla),
+    path('holarender/<nombre>/<apellido>', holamundo_render),
     path('fecha/', fecha),
 ]
