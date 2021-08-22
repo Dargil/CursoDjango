@@ -2,6 +2,28 @@ from django.http import HttpResponse
 import datetime
 from django.template import Template, Context
 
+class Usuario():
+
+    def __init__(self,nombre,apellido):
+        self.nombre=nombre
+        self.apellido=apellido
+
+
+# Pasando objetos a plantillas mediante contexto
+#http://127.0.0.1:8000/hola/oscar/perez
+def holamundoPlantilla(request,nombre,apellido):
+    """Vista Hola Mundo"""
+    myuser=Usuario(nombre,apellido)
+    doc = open ("/home/jefferson/Documents/Curso Django/CursoDjango/prueba1/prueba1/templates/miprimeraplantilla.html")
+    plt=Template(doc.read())
+    doc.close()
+    ctx=Context({"user":myuser})
+    documento=plt.render(ctx)
+    return HttpResponse(documento)
+
+
+
+
 # Lectura directa del archivo
 def holamundoPlantilla1(request,nombre):
     """Vista Hola Mundo"""
@@ -14,7 +36,7 @@ def holamundoPlantilla1(request,nombre):
 
 # Pasando variables a plantillas mediante contextos
 #http://127.0.0.1:8000/hola/oscar
-def holamundoPlantilla(request,nombre):
+def holamundoPlantilla2(request,nombre):
     """Vista Hola Mundo"""
     doc = open ("/home/jefferson/Documents/Curso Django/CursoDjango/prueba1/prueba1/templates/miprimeraplantilla.html")
     plt=Template(doc.read())
