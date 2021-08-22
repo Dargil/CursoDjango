@@ -8,6 +8,10 @@
 <!-- objetos No es necesario agregar los parentesis a una clase en particular -->
 <h1 style="color: brown;">Hola {{user.nombre.upper}} {{user.apellido}} bienvenidos al curso Django!</h1> 
 
+<!--mas sobre built-ins (funcionalidades incorporadas) de las plantillas django-->
+<h1 style="color: brown;">Hola {{user.nombre|upper}} {{user.apellido}} bienvenidos al curso Django!</h1> 
+<h1 style="color: brown;">Hola {{user.nombre|upper|first}} {{user.apellido}} bienvenidos al curso Django!</h1> 
+
 </body>
 
 </html>

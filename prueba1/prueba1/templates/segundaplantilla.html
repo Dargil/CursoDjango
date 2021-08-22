@@ -3,11 +3,16 @@
 <body>
 
     <h1 style="color: brown;">
-    {% for numero in lista%}
-        
-        <p> {{numero}}</p>
-    {%endfor%}
-    
+        {% for numero in lista %}
+            <p> {{numero|floatformat:3}}</p>
+            {%if numero > 0 %}
+                <p>{{numero}}(<span style="color: chartreuse;">Positivo</span>)</p>
+            {% else %}
+                <p>{{numero}}(<span style="color: chartreuse;">Negativo</span>)</p>
+            {%endif%}
+
+        {%endfor%}
+
     </h1>
 
 </body>
