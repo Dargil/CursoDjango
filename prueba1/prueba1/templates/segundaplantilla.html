@@ -1,20 +1,21 @@
-<html>
+{% extends "plantillapadre.html" %}
 
-<body>
-    {% include "navbar.html"%}
-    <h1 style="color: brown;">
-        {% for numero in lista %}
-            <p> {{numero|floatformat:3}}</p>
-            {%if numero > 0 %}
-                <p>{{numero}}(<span style="color: chartreuse;">Positivo</span>)</p>
-            {% else %}
-                <p>{{numero}}(<span style="color: chartreuse;">Negativo</span>)</p>
-            {%endif%}
+{% block title%}
+<title> Saludo</title>
+{% endblock%}
 
-        {%endfor%}
+{% block content %}
 
-    </h1>
-    {% include "footer.html"%}
-</body>
+<h1 style="color: brown;">
+    {% for numero in lista %}
+    <p> {{numero|floatformat:3}}</p>
+    {%if numero > 0 %}
+    <p>{{numero}}(<span style="color: chartreuse;">Positivo</span>)</p>
+    {% else %}
+    <p>{{numero}}(<span style="color: chartreuse;">Negativo</span>)</p>
+    {%endif%}
 
-</html>
+    {%endfor%}
+
+</h1>
+{% endblock %}

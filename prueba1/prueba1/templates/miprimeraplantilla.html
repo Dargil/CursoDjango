@@ -1,7 +1,10 @@
-<html>
+{% extends "plantillapadre.html" %}
 
-<body>
-    {% include "navbar.html"%}
+{% block title%} 
+<title> Saludo</title>
+{% endblock%}
+ 
+{% block content %} 
 
     <h1>Hola bienvenidos al curso Django!</h1>
     <!--{{nombre_user}} forma de pasar las variables -->
@@ -12,8 +15,10 @@
     <!--mas sobre built-ins (funcionalidades incorporadas) de las plantillas django-->
     <h1 style="color: brown;">Hola {{user.nombre|upper}} {{user.apellido}} bienvenidos al curso Django!</h1>
     <h1 style="color: brown;">Hola {{user.nombre|upper|first}} {{user.apellido}} bienvenidos al curso Django!</h1>
+ 
 
-    {% include "footer.html"%}
-</body>
+    {% endblock  %}
 
-</html>
+    {% block msgdes%}     
+    chao !!
+    {% endblock%}
