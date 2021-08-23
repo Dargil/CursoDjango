@@ -1,7 +1,7 @@
 <html>
 
 <body>
-
+    {% include "navbar.html"%}
     <h1 style="color: brown;">
         {% for numero in lista %}
             <p> {{numero|floatformat:3}}</p>
@@ -14,7 +14,7 @@
         {%endfor%}
 
     </h1>
-
+    {% include "footer.html"%}
 </body>
 
 </html>
