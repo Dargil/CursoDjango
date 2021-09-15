@@ -11,5 +11,13 @@ class Clientes(models.Model):
     telefono=models.IntegerField()
 
     def __str__(self):
-        return 'Cliente %$ %$, fecha Nacimiento: %$, correo: %$' %(self.nombres,self.apellidos,self.fechaNaci,self.correo)
+        return 'Cliente %s %s, fecha Nacimiento: %s, correo: %s' %(self.nombres,self.apellidos,self.fechaNaci,self.correo)
 
+class Autos(models.Model):
+    placa = models.CharField(max_length=7)
+    tipo = models.CharField(max_length=10)
+    marca = models.CharField(max_length=20)
+    modelo= models.IntegerField()
+    valor_renta = models.IntegerField()
+    def __str__(self):
+        return 'Auto de tipo: %s, con placa: %s, marca: %s , modelo: %s' %(self.tipo,self.placa,self.marca,self.modelo)
