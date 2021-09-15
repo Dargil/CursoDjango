@@ -1,0 +1,82 @@
+Plataforma
+
+https://mastertech.usergioarboleda.edu.co/
+
+Instalación
+https://marketplace.visualstudio.com/items?itemname=ms-python.python
+
+
+---
+import django
+jango.VERSION
+
+sudo apt-get install postgresql postgresql-contrib
+
+
+django-admin startproject prueba1 --Crear un proyecto
+python manage.py startapp Rentas --Crear una aplicacion de rentas
+python manage.py migrate --Realizar las migraciones, BD
+python manage.py runserver --Correr el servidor
+
+python manage.py check Rentas --verificar que todo este bien con nuestro modelo y aplicacion
+python manage.py makemigrations  --hacer el codigo sql
+python manage.py migrate --toma la ultima version del makemigrations y hace la migracion - Crea la base de datos como tal
+
+python manage.py sqlmigrate Rentas 0001 -- ver el codigo sql generado
+
+------------------------------------
+--Operaciones CRUD
+
+python manage.py shell
+
+from Rentas.models import Clientes
+cl1 = Clientes.objects.get(id=1)
+print(cl1)
+cl1.correo
+cl1.correo = 'ruben.manrique@correo.usa.edu.co'
+cl1.correo
+cl1.save()
+
+from Rentas.models import Autos
+au1 = Autos(placa='MTE234',tipo='sedan',marca='FORD',modelo='2018',valor_renta='120000')
+au1.save()
+
+au2 = Autos(placa='ATE234',tipo='pickup',marca='nissa',modelo='2012',valor_renta='150000')
+au2.save()
+au2.tipo = 'sedan'
+au2.save()
+au2.delete()
+print(au2)
+au2.save()
+
+todos_carros= Autos.objects.all()
+print(todos_carros)
+todos_carros.query.__str__()
+
+
+
+-----------------------------------------
+apt-get install libpq-dev
+pip install psycopg2
+-- Cambiar las credenciales de postgres
+sudo -u postgres psql postgres
+\password postgres
+
+-- instalar pgadmin
+https://tecadmin.net/how-to-install-pgadmin4-on-ubuntu-20-04/
+curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add -
+sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list' 
+sudo apt update
+sudo apt install pgadmin4 
+sudo /usr/pgadmin4/bin/setup-web.sh 
+
+
+
+
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py collectstatic
+python manage.py runserver 0.0.0.0:8000
+
+gunicorn --bind 0.0.0.0:8000 mysite.wsgi
