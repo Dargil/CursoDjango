@@ -114,4 +114,16 @@ Usuario2: ruframapi
 
 
 
+---------------------------------
+Peticiones Y formularios
+https://docs.djangoproject.com/en/3.2/ref/request-response/
+
+
+{% csrf_token %} 
+
+
+
+
+
+
 

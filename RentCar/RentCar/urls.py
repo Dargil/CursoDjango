@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from Rentas import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('buscarauto/', views.busca_autos_placa),
+    path('resultsbuscarauto/', views.results_buscar_auto),
 ]
