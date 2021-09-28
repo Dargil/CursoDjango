@@ -133,6 +133,20 @@ def results_buscar_auto(request):
 
 
 
+# https://docs.djangoproject.com/en/3.2/ref/forms/api/
+
+----- Formularios html y api
+
+python manage.py shell
+from Rentas.form import FormularioAuto
+form1= FormularioAuto({'placa':'TYG234','tipo':'Sedan','marca':'Nissan','modelo': 2008,'valor_renta':123000})
+form1.is_valid()
+form1.errors
+print(form1) # para cada uno me genera el input como html
+print(form1.as_ul()) # imprimirlo como una lista no ordenada
+print(form1.as_p()) # imprimirlo con etiquetas p
+
+
 
 
 
