@@ -72,6 +72,19 @@ sudo /usr/pgadmin4/bin/setup-web.sh
 
 
 
+-----------------
+# Relaciones Django
+from Rentas.models import Autos, Clientes, Rentas
+a1 = Autos(placa='MER123',tipo='sedan',marca='FORD',modelo='2019',valor_renta='150000')
+a1.save()
+c1 = Clientes(nombres="Ruben Francisco", apellidos='Manrique',fechaNaci='1986-06-01',cedula='123',correo='rf@rf.com',telefono='1234')
+c1.save()
+r1= Rentas(fecha_renta='2017-06-01',duracion_renta='3',fecha_salida='2017-06-02',fecha_entrega='2017-06-05',autos=a1,clientes=c1)
+r1.save()
+
+# Otras relaciones en modelos
+Relación 1 a 1 y relacion 1 a muchos
+
 
 
 python manage.py makemigrations
@@ -80,3 +93,5 @@ python manage.py collectstatic
 python manage.py runserver 0.0.0.0:8000
 
 gunicorn --bind 0.0.0.0:8000 mysite.wsgi
+
+
