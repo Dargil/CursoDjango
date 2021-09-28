@@ -2,7 +2,7 @@
 <head>
 </head>
 <body>
-    <form action="/resultsbuscarauto/" method="GET">
+    <form action="/resultsbuscarauto/" method="POST"> {% csrf_token %} 
         <input type="text" name="placa">
         <input type="submit">
     </form>

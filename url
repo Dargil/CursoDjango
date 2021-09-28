@@ -122,6 +122,17 @@ https://docs.djangoproject.com/en/3.2/ref/request-response/
 {% csrf_token %} 
 
 
+def results_buscar_auto(request):
+    if request.GET["placa"]:
+        placa = request.GET["placa"]
+        autos_busqueda = Autos.objects.filter(placa_icontains=placa)
+        return render(request,)
+    respuesta = "Buscando auto con placa : %s " % request.GET["placa"]
+
+    return HttpResponse(respuesta)
+
+
+
 
 
 

@@ -18,8 +18,8 @@ def busca_autos_placa(request):
 
 
 def results_buscar_auto(request):
-    if request.GET["placa"]:
-        placa = request.GET["placa"]
+    if request.POST["placa"]:
+        placa = request.POST["placa"]
         autos_busqueda = Autos.objects.filter(placa__icontains=placa)
         return render(request,"respuesta_buscar_autos.html",{"autos":autos_busqueda,"placa":placa})
     else:
