@@ -1,6 +1,7 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.http import HttpResponse
+from Rentas.models import Autos
 
 # Create your views here.
 def busca_autos_placa(request):
@@ -8,6 +9,10 @@ def busca_autos_placa(request):
 
 
 def results_buscar_auto(request):
-    respuesta = "Buscando auto con placa : %s " % request.GET["placa"]
+    if request.GET["placa"]:
+        placa = request.GET["placa"]
+        autos_busqueda = Autos.objects.get(placa=placa)
+        return render(request,"respuesta_buscar_autos.html",{"autos":autos_busqueda,"placa":placa})
+    else:
+        return HttpResponse("Campo placa no diligenciado")
 
-    return HttpResponse(respuesta)

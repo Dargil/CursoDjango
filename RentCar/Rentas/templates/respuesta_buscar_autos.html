@@ -1,0 +1,20 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <h3>Buscando placa: {{placa}}</h3>
+    {% if autos %}
+    <ul>
+        <li>{{autos.id}}</li>
+        <li>{{autos.placa}}</li>
+        <li>{{autos.marca}}</li>
+        <li>{{autos.modelo}}</li>
+    </ul>
+    {% else %}
+    <p>Auto no existe en base de datos</p>
+    {% endif%}
+</body>
+
+</html>
