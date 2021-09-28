@@ -5,7 +5,9 @@ from django.db import models
 class Clientes(models.Model):
     nombres=models.CharField(max_length=20)
     apellidos=models.CharField(max_length=40)
-    fechaNaci=models.DateField()
+    # Como se vera el dato en el panel de administracion
+    # El campo puede ser nulo y en los formularios puede ser vacio 
+    fechaNaci=models.DateField(verbose_name='Fecha Nacimiento',null=True,blank=True)
     cedula=models.IntegerField()
     correo=models.EmailField()
     telefono=models.IntegerField()
@@ -42,5 +44,5 @@ class Rentas(models.Model):
 
     
     def __str__(self):
-        return 'Auto de tipo: %s, con placa: %s, marca: %s , modelo: %s' %(self.tipo,self.placa,self.marca,self.modelo)
+        return 'fecha_renta: %s, con duracion_renta: %s, fecha_salida: %s , fecha_entrega: %s' %(self.fecha_renta,self.duracion_renta,self.fecha_salida,self.fecha_entrega)
 
