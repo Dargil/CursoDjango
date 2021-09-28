@@ -6,12 +6,15 @@
 <body>
     <h3>Buscando placa: {{placa}}</h3>
     {% if autos %}
+
+    {% for auto in autos%}
     <ul>
-        <li>{{autos.id}}</li>
-        <li>{{autos.placa}}</li>
-        <li>{{autos.marca}}</li>
-        <li>{{autos.modelo}}</li>
+        <li>{{auto.id}}</li>
+        <li>{{auto.placa}}</li>
+        <li>{{auto.marca}}</li>
+        <li>{{auto.modelo}}</li>
     </ul>
+    {% endfor %}
     {% else %}
     <p>Auto no existe en base de datos</p>
     {% endif%}
