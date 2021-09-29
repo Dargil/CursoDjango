@@ -22,4 +22,6 @@ urlpatterns = [
     path('buscarauto/', views.busca_autos_placa),
     path('resultsbuscarauto/', views.results_buscar_auto),
     path('crearauto/', views.crear_auto),
+    path('editarauto/<int:id>/', views.editar_auto),
+    path('auto/<int:id>/borar/', views.delete_auto),
 ]

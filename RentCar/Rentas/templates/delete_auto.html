@@ -1,0 +1,18 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <form method="POST" action="."> {% csrf_token %}
+        <h1>Realmente quiere borrar el auto: {{auto.placa}}-{{auto.modelo}}?</h1>
+        <p><input type="submit" value="borar registro"> </p>
+        <p><a href="../">Cancel</a></p>
+
+
+    </form>
+
+
+</body>
+
+</html>
