@@ -1,0 +1,95 @@
+https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+
+NGNX-Web server, load balancer, proxy inverso.
+
+https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/uwsgi/
+https://wsgi.readthedocs.io/en/latest/
+
+
+##Creacion de entorno virtual
+#https://www.freecodecamp.org/news/django-uwsgi-nginx-postgresql-setup-on-aws-ec2-ubuntu16-04-with-python-3-6-6c58698ae9d3/
+sudo apt install virtualenv
+virtualenv -p python3 deployment-env
+cd deployment-env
+source bin/activate
+sudo apt-get install python3-dev
+pip install uwsgi
+pip install Django
+
+## Creacion de proyecto Django y enlace a wsgi.py
+
+django-admin.py startproject mysite
+cd mysite
+-- probando con el servidor de desarrollo
+python manage.py runserver 0.0.0.0:8000
+
+-- Agregando host permitidos
+nano settings.py
+ALLOWED_HOSTS = ['ec2-54-221-117-4.compute-1.amazonaws.com']
+
+
+
+
+
+
+- Probando uwsgi
+-Ya usando nuestra aplicacion
+uwsgi --http :8000 --chdir /home/ubuntu/mysite --wsgi-file mysite/wsgi.py --master --processes 4
+
+https://uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html
+cd /home/ubuntu/mysite
+the web client<-> uWSGI<-> Python
+touch uwsgi.ini
+nano uwsgi.ini
+
+-----
+
+[uwsgi]
+
+socket = 127.0.0.1:8000
+chdir = /home/ubuntu/mysite
+module = mysite.wsgi
+master = true
+processes = 4
+vacuum = true
+
+----
+
+uwsgi --ini uwsgi.ini
+
+## Nginx
+
+sudo apt-get install nginx
+
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+sudo nano /etc/nginx/sites-available/default
+
+
+server {
+    listen 80;
+    server_name http://ec2-54-221-117-4.compute-1.amazonaws.com/;
+    charset UTF-8;
+    access_log /var/log/nginx/mysite_access.log;
+    error_log  /var/log/nginx/mysite_access.log;
+    
+    client_max_body_size 75M;
+ 
+    location / {
+        include uwsgi_params;
+        uwsgi_pass 127.0.0.1:8000;
+        uwsgi_read_timeout 2;
+    }    
+ 
+    location /static {
+     	expires 30d;
+     	autoindex on;
+     	add_header Cache-Control private;
+     	alias /home/ubuntu/mysite/static/;	
+    }   
+   
+}
+
+sudo nginx -t #revisar sintaxis
+sudo /etc/init.d/nginx start
+uwsgi --ini uwsgi.ini
+
