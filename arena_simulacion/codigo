@@ -6,4 +6,6 @@ python mage.py migrate
 python manage.py createsuperuser
 	user: admin
 	password: Password.1
+python manage.py makemigrations
+python manage.py migrate
 
