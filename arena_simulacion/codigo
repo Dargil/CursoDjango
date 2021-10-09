@@ -1,0 +1,9 @@
+django-admin startproject tiendavirtual
+cd tiendavirtual
+python manage.py startapp tiendavirtualapp
+python manage.py runserver
+python mage.py migrate
+python manage.py createsuperuser
+	user: admin
+	password: Password.1
+
