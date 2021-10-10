@@ -1,3 +1,5 @@
+Templates: https://colorlib.com/wp/template/ogani/
+generador de textos: https://www.lipsum.com/
 django-admin startproject tiendavirtual
 cd tiendavirtual
 python manage.py startapp tiendavirtualapp
@@ -8,4 +10,5 @@ python manage.py createsuperuser
 	password: Password.1
 python manage.py makemigrations
 python manage.py migrate
+
 
