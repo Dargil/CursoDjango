@@ -1,0 +1,218 @@
+
+
+
+{% extends "base_template.html" %}
+{% load static %}
+{% block content %}
+    <!-- Hero Section Begin -->
+    <section class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>Categorias</span>
+                        </div>
+                        <ul>
+                            <!--capfirst la primera letra la ponga en mayuscula --> 
+                            {% for cat in all_cat %}
+                            <li><a href="#">{{cat.nombre|capfirst}}</a></li>
+                            {% endfor%}
+
+
+                            
+                
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    All Categories
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="What do yo u need?">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+65 11.188.888</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero__item set-bg" data-setbg="{% static "img/hero/banner.jpg" %}">
+                        <div class="hero__text">
+                            <span>Fruta Fresca</span>
+                            <h2>Vegetales <br />100% Organicos</h2>
+                            <p>Entrega sin costo</p>
+                            <a href="listaactivos" class="primary-btn">Compre ahora</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+
+
+    <!-- Latest Product Section Begin -->
+    <section class="latest-product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="latest-product__text">
+                        <h4>Últimos Productos</h4>
+                        <div class="latest-product__slider owl-carousel">
+                            <div class="latest-prdouct__slider__item">
+                                
+
+                                {% for product in latest_prod %}
+                                {% if forloop.counter <= 3 %}
+                                    <a href="productodetalles/{{product.id}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            {% with 'img/product/'|add:product.imagen as image_static %}
+                                            <img src="{% static image_static %}" alt="">
+                                            {% endwith %}
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{product.nombre}}</h6>
+                                            <span>{{product.unidad}}-{{product.precio_unidad}} COP</span>
+                                        </div>
+                                    </a>
+
+                                {% endif %}
+                                {% endfor %}
+                               
+                            </div>
+                            <div class="latest-prdouct__slider__item">
+                                
+                                {% for product in latest_prod %}
+                                {% if forloop.counter > 3 %}
+                                    <a href="productodetalles/{{product.id}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            {% with 'img/product/'|add:product.imagen as image_static %}
+                                            <img src="{% static image_static %}" alt="">
+                                            {% endwith %}
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{product.nombre}}</h6>
+                                            <span>{{product.unidad}}-{{product.precio_unidad}} COP</span>
+                                        </div>
+                                    </a>
+
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="latest-product__text">
+                        <h4>Top Prod. Calificados</h4>
+                        <div class="latest-product__slider owl-carousel">
+                            <div class="latest-prdouct__slider__item">
+                   
+
+                                {% for product in top_prod %}
+                                {% if forloop.counter <= 3 %}
+                                    <a href="productodetalles/{{product.producto.id}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            {% with 'img/product/'|add:product.producto.imagen as image_static %}
+                                            <img src="{% static image_static %}" alt="">
+                                            {% endwith %}
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{product.producto.nombre}}</h6>
+                                            <span>{{product.producto.unidad}}-{{product.producto.precio_unidad}} COP</span>
+                                        </div>
+                                    </a>
+
+                                {% endif %}
+                                {% endfor %}
+
+
+
+                            </div>
+                            <div class="latest-prdouct__slider__item">
+                                
+
+
+                                {% for product in top_prod %}
+                                {% if forloop.counter > 3 %}
+                                    <a href="productodetalles/{{product.producto.id}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            {% with 'img/product/'|add:product.producto.imagen as image_static %}
+                                            <img src="{% static image_static %}" alt="">
+                                            {% endwith %}
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{product.producto.nombre}}</h6>
+                                            <span>{{product.producto.unidad}}-{{product.producto.precio_unidad}} COP</span>
+                                        </div>
+                                    </a>
+
+                                {% endif %}
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="latest-product__text">
+                        <h4>Últimos Evaluados</h4>
+                        <div class="latest-product__slider owl-carousel">
+                            <div class="latest-prdouct__slider__item">
+                                
+                                {% for product in latest_review %}
+                                {% if forloop.counter <= 3 %}
+                                    <a href="productodetalles/{{product.producto.id}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            {% with 'img/product/'|add:product.producto.imagen as image_static %}
+                                            <img src="{% static image_static %}" alt="">
+                                            {% endwith %}
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{product.producto.nombre}}</h6>
+                                            <span>{{product.producto.unidad}}-{{product.producto.precio_unidad}} COP</span>
+                                        </div>
+                                    </a>
+
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="latest-prdouct__slider__item">
+                                {% for product in latest_review %}
+                                {% if forloop.counter > 3 %}
+                                    <a href="productodetalles/{{product.producto.id}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            {% with 'img/product/'|add:product.producto.imagen as image_static %}
+                                            <img src="{% static image_static %}" alt="">
+                                            {% endwith %}
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{product.producto.nombre}}</h6>
+                                            <span>{{product.producto.unidad}}-{{product.producto.precio_unidad}} COP</span>
+                                        </div>
+                                    </a>
+
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Latest Product Section End -->
+    {% endblock %}
