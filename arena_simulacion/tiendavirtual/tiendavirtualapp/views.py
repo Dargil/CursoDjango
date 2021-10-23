@@ -15,8 +15,21 @@ def home(request):
     return render(request,"home.html",{"all_cat":all_cat,"latest_prod":latest_prod,"top_prod":top_prod,"latest_review":latest_review})
 
 def lista_productos(request):
-    return HttpResponse("lista productos")
+    return render(request,"shop-grid.html")
+
 def producto_detalles(request,product_id):
-    return HttpResponse("Detalle productos")
+    return render(request,"shop-details.html")
+
+def shopping_cart(request):
+    return render(request,"shoping-cart.html")
+
+
+def checkout(request):
+    return render(request,"checkout.html")
+
+def contact(request):
+    return render(request,"contact.html")
+
+
 def lista_categorias(request):
     return HttpResponse("lista categorias")
