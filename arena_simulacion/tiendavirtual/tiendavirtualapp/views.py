@@ -48,7 +48,12 @@ def producto_detalles(request,product_id):
 
 def shopping_cart(request):
     validate_session(request)
-    return render(request,"shoping-cart.html")
+    shopping_list = []
+    for product_id, quantity in request.session["shop_cart"]['productos'].items():
+        producto = get_object_or_404(Productos,pk=int(product_id))
+        total_producto = float(producto.precio_unidad)*quantity
+        shopping_list.append({"quantity":quantity,"product_id":product_id,"nombre":producto.nombre,"precio":producto.precio_unidad,"total":total_producto})
+    return render(request,"shoping-cart.html",{"shopping_list":shopping_list})
 
 
 def checkout(request):
