@@ -102,3 +102,51 @@ def add_product(request):
         return HttpResponseRedirect('productodetalles/'+product_id)
     else:
         return HttpResponse('Error no se ha seleccionado un producto')
+
+def changeproductquantity(request):
+    if request.POST["product_id"] and request.POST["quantity"]:
+        validate_session(request)
+        product_id = request.POST["product_id"]
+        producto = get_object_or_404(Productos, pk=product_id)
+        if str(product_id) in request.session["shop_cart"]["productos"]:
+            ## Se hace un reset en los totales de la sesion para el producto
+            original_quantity = request.session["shop_cart"]["productos"][str(product_id)]
+            original_total_pro = producto.precio_unidad * original_quantity
+            request.session["shop_cart"]["total_productos"] -= original_quantity
+            request.session["shop_cart"]["total_valor"] -= float(original_total_pro)
+            ## Se actualiza segun la nueva cantidad
+            if int(request.POST["quantity"]) > 0:
+                request.session["shop_cart"]["productos"][str(product_id)] = int(request.POST["quantity"])
+                request.session["shop_cart"]["total_productos"] += int(request.POST["quantity"])
+                total_val = (producto.precio_unidad * int(request.POST["quantity"]))
+                request.session["shop_cart"]["total_valor"] += float(total_val)
+            else:
+                request.session["shop_cart"]["productos"].pop(str(product_id))
+
+            request.session.modified = True
+            return HttpResponseRedirect('shoppingcart/')
+        else:
+            return HttpResponse("El producto no se encuentra actualmente en la canasta")
+    else:
+        return HttpResponse("Error no se ha seleccionado un producto")
+
+    
+
+def deleteproduct(request):
+    if request.POST["product_id"]:
+        validate_session(request)
+        product_id = request.POST["product_id"]
+        producto = get_object_or_404(Productos, pk=product_id)
+        if str(product_id) not in request.session["shop_cart"]["productos"]:
+            return HttpResponse("El producto no se encuentra actualmente en la canasta")
+            ## Se hace un reset en los totales de la sesion para el producto
+        original_quantity = request.session["shop_cart"]["productos"][str(product_id)]
+        original_total_pro = producto.precio_unidad * original_quantity
+        
+        request.session["shop_cart"]["total_productos"] -= original_quantity
+        request.session["shop_cart"]["total_valor"] -= float(original_total_pro)
+        request.session["shop_cart"]["productos"].pop(str(product_id))
+        request.session.modified = True
+        return HttpResponseRedirect('shoppingcart/')
+    else:
+        return HttpResponse("Error no se ha seleccionado un producto")
