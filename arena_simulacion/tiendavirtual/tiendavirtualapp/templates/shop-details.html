@@ -55,17 +55,26 @@
                             {% endfor %}
                             <span>({{calificaciones|length}} calificaciones)</span>
                         </div>
+
                         <div class="product__details__price">${{producto.precio_unidad}} COP {{producto.unidad}}</div>
                         <p>{{producto.descripcion}}</p>
+
+                    <form action="/addproduct" method="POST"> {% csrf_token%}
+
+
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="hidden" name='product_id' value="{{producto.id}}">
+                                    <input type="quantity" name="quantity" value="1">
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="primary-btn">Adicionar Carrito</a>
+                        <button type="submit"  class="primary-btn">Adicionar Carrito</button>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                       
+                    </form>
+                       
                         <ul>
                             <li><b>Disponibilidad</b> <span>In Stock</span></li>
                             <li><b>Envio</b> <span>1 día de envio<samp>Sin costo para Bogotá</samp></span></li>

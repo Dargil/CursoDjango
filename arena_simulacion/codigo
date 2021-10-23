@@ -12,3 +12,10 @@ python manage.py makemigrations
 python manage.py migrate
 
 "{% static      %}"
+
+Manejo de sesiones
+https://docs.djangoproject.com/en/3.2/topics/http/sessions/
+
+Plugins para la construccion de tiendas virtuales
+
+
