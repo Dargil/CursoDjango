@@ -19,12 +19,13 @@ from tiendavirtualapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home),
-    path('listaactivos/', views.lista_productos),
+    path('listaactivos/<int:cat_prod>/', views.lista_productos),
     path('productodetalles/<int:product_id>/', views.producto_detalles),
     path('listacategorias/', views.lista_categorias),
     path('shoppingcart/', views.shopping_cart),
     path('checkout/', views.checkout),
     path('contact/', views.contact),
+    path('resultadobuscador/', views.resultado_buscador)
     
 
 
