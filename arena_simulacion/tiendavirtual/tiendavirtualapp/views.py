@@ -1,3 +1,4 @@
+from builtins import range
 from django.http.response import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import Template, Context,loader
@@ -18,7 +19,18 @@ def lista_productos(request):
     return render(request,"shop-grid.html")
 
 def producto_detalles(request,product_id):
-    return render(request,"shop-details.html")
+    producto = get_object_or_404(Productos,pk = product_id)
+    productos_relacionados = Productos.objects.filter(categoria_id = producto.categoria.id)
+    calificaciones = Calificacion.objects.filter(producto=product_id)
+    totacal = 0.0
+    average = 0.0
+    for cal in calificaciones:
+        totacal += float(cal.calificacion)
+    if totacal:
+        average = totacal/len(calificaciones)
+    promedio = range(int(average))
+
+    return render(request,"shop-details.html",{"producto":producto,"productos_relacionados":productos_relacionados,"calificaciones":calificaciones,"promedio":promedio})
 
 def shopping_cart(request):
     return render(request,"shoping-cart.html")
