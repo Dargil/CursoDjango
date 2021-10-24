@@ -65,6 +65,7 @@ def checkout(request):
         total_producto = float(producto.precio_unidad)*quantity
         shopping_list.append({"quantity":quantity,"product_id":product_id,"nombre":producto.nombre,"precio":producto.precio_unidad,"total":total_producto})
     #Nota el impuesto deberia ser una variable global o especificada en la base de datos de acuerdo al producto
+    #Puede ser tambien almacenado como una variable global en el settings
     impuesto_percentage = 0.1
     impuesto = request.session["shop_cart"]["total_valor"] * impuesto_percentage
     total_carrito_impuesto = request.session["shop_cart"]["total_valor"] * (1.0+impuesto_percentage)
@@ -166,6 +167,7 @@ def procesarpago(request):
     validate_session(request)
     if not (request.session["shop_cart"]["total_valor"] > 0.0 and request.session["shop_cart"]["total_productos"]):
         return HttpResponseRedirect("checkout/")
+
     if request.method == 'POST':
         clientForm = FormularioCliente(request.POST)
         pedidoForm = FormularioPedido(request.POST)
@@ -176,11 +178,15 @@ def procesarpago(request):
             pedido.cliente = cliente
             pedido.save()
             # Creacion de las instancias productos pedidos
-            for product_id,quantity in request.sessionj["shop_cart"]["productos"].items():
+            for product_id,quantity in request.session["shop_cart"]["productos"].items():
                 producto = get_object_or_404(Productos,pk=int(product_id))
                 total_producto = float(producto.precio_unidad) * quantity
                 pp = ProductosPedido(cantidad=quantity,subtotal=total_producto)
                 pp.Productos = producto
                 pp.pedido = pedido
                 pp.save()
-    return HttpResponse("Envío xitoso")
+            request.session.pop("shop_cart")
+            return render(request,"pedido_exitoso.html",{"mensaje_exitoso":"Su compra fue registrada correctamente, en los proximos dias recibira su producto"})
+        else:
+            return HttpResponse("Se presentaron errores en el formulario: {}".format(clientForm.errors))
+    return HttpResponse("Acceso invalido!!")
