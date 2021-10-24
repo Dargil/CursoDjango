@@ -64,6 +64,8 @@ class Clientes(models.Model):
         ('No','Inactivo')
     )
     activo = models.CharField(max_length=2,choices=TRUE_FALSE_CHOISES,default='Si')
+    #Se habia olvidado especificar este atributo
+    telefono = models.CharField(max_length=15,verbose_name='Teléfono')
     def __str__(self):
         return 'Cliente: %s, con dirección: %s, correo: %s, fecha registro: %s' % (self.nombres,self.dir_envio,self.correo,self.fecha_registro)
 
@@ -95,6 +97,8 @@ class Pedidos(models.Model):
     )
     estado = models.CharField(max_length=2,choices=ESTADO_CHOISES,default='Rg')
     
+    # Se habia olvidado ingresar esta relacion
+    cliente = models.ForeignKey(Clientes, on_delete=models.PROTECT)
     class Meta:
         verbose_name_plural = "Pedidos"
 

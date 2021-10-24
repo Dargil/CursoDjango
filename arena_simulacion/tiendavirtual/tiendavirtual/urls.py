@@ -28,7 +28,8 @@ urlpatterns = [
     path('resultadobuscador/', views.resultado_buscador),
     path('addproduct', views.add_product),
     path('changeproductquantity', views.changeproductquantity),
-    path('deleteproduct', views.deleteproduct)
+    path('deleteproduct', views.deleteproduct),
+    path('procesarpago', views.procesarpago)
     
     
     

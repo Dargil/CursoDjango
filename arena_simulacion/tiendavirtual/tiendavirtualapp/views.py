@@ -58,7 +58,17 @@ def shopping_cart(request):
 
 def checkout(request):
     validate_session(request)
-    return render(request,"checkout.html")
+    shopping_list = []
+    for product_id, quantity in request.session["shop_cart"]['productos'].items():
+        producto = get_object_or_404(Productos,pk=int(product_id))
+        total_producto = float(producto.precio_unidad)*quantity
+        shopping_list.append({"quantity":quantity,"product_id":product_id,"nombre":producto.nombre,"precio":producto.precio_unidad,"total":total_producto})
+    #Nota el impuesto deberia ser una variable global o especificada en la base de datos de acuerdo al producto
+    impuesto_percentage = 0.1
+    impuesto = request.session["shop_cart"]["total_valor"] * impuesto_percentage
+    total_carrito_impuesto = request.session["shop_cart"]["total_valor"] * (1.0+impuesto_percentage)
+    return render(request,"checkout.html",{"shopping_list":shopping_list,"impuesto":round(impuesto,2),"total_carrito_impuesto":round(total_carrito_impuesto,2)})
+
 
 def contact(request):
     validate_session(request)
@@ -150,3 +160,6 @@ def deleteproduct(request):
         return HttpResponseRedirect('shoppingcart/')
     else:
         return HttpResponse("Error no se ha seleccionado un producto")
+
+def procesarpago(request):
+    return HttpResponse("Envío xitoso")
