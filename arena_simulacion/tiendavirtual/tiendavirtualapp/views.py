@@ -4,6 +4,7 @@ from django.http.response import HttpResponse,HttpResponseRedirect
 from django.shortcuts import get_list_or_404, render, get_object_or_404
 from django.template import Template, Context,loader
 from tiendavirtualapp.models import Categorias,Clientes,Productos,ProductosPedido,Inventario,Calificacion
+from tiendavirtualapp.forms import FormularioCliente,FormularioPedido
 # Create your views here.
 
 def home(request):
@@ -162,4 +163,24 @@ def deleteproduct(request):
         return HttpResponse("Error no se ha seleccionado un producto")
 
 def procesarpago(request):
+    validate_session(request)
+    if not (request.session["shop_cart"]["total_valor"] > 0.0 and request.session["shop_cart"]["total_productos"]):
+        return HttpResponseRedirect("checkout/")
+    if request.method == 'POST':
+        clientForm = FormularioCliente(request.POST)
+        pedidoForm = FormularioPedido(request.POST)
+
+        if clientForm.is_valid() and pedidoForm.is_valid():
+            cliente = clientForm.save()
+            pedido = pedidoForm.save(commit=False)
+            pedido.cliente = cliente
+            pedido.save()
+            # Creacion de las instancias productos pedidos
+            for product_id,quantity in request.sessionj["shop_cart"]["productos"].items():
+                producto = get_object_or_404(Productos,pk=int(product_id))
+                total_producto = float(producto.precio_unidad) * quantity
+                pp = ProductosPedido(cantidad=quantity,subtotal=total_producto)
+                pp.Productos = producto
+                pp.pedido = pedido
+                pp.save()
     return HttpResponse("Envío xitoso")

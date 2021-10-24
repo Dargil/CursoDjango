@@ -127,7 +127,9 @@
                                        
                                     </label>
                                 </div>
-     
+                                <input type="hidden" name="valor_total" value="{{request.session.shop_cart.total_valor}}" required>
+                                <input type="hidden" name="impuestos" value="{{impuesto}}" required>
+                                <input type="hidden" name="total" value="{{total_carrito_impuesto}}" required>
                                 <button type="submit" class="site-btn">Proceder al pago</button>
                             </div>
                         </div>
